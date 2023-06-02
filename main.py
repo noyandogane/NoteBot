@@ -23,18 +23,25 @@ async def help(ctx):
     await ctx.send(embed=embed)
 
 @bot.command()
-async def add(ctx, category_or_note: str = None, *, note: str):
+async def add(ctx, *, category_or_note: str = None):
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-    note = f"{timestamp}: {note}"
-    user_notes = notes.setdefault(ctx.message.author.id, {})
-    if category_or_note and category_or_note.startswith("c="):
-        category = category_or_note[2:]
-        user_notes.setdefault(category, []).append(note)
-        await ctx.send('Note added to the category!')
+    if category_or_note:
+        note_parts = category_or_note.split(maxsplit=1)
+        if len(note_parts) == 2 and note_parts[0].startswith("c="):
+            category = note_parts[0][2:]
+            note = f"{timestamp}: {note_parts[1]}"
+            user_notes = notes.setdefault(ctx.message.author.id, {})
+            user_notes.setdefault(category, []).append(note)
+            await ctx.send('Note added to the category!')
+        else:
+            note = f"{timestamp}: {category_or_note}"
+            category = 'Uncategorized'
+            user_notes = notes.setdefault(ctx.message.author.id, {})
+            user_notes.setdefault(category, []).append(note)
+            await ctx.send('Note added without a category!')
     else:
-        category = 'Uncategorized'
-        user_notes.setdefault(category, []).append(note)
-        await ctx.send('Note added without a category!')
+        await ctx.send('Please provide a note to add.')
+
 
 @bot.command()
 async def view(ctx):
