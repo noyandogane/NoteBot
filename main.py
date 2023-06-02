@@ -1,7 +1,9 @@
 import discord
 from discord.ext import commands
 
-bot = commands.Bot(command_prefix='!')
+intents = discord.Intents.default()
+
+bot = commands.Bot(command_prefix='!', intents=intents)
 
 notes = {}
 
@@ -26,7 +28,6 @@ async def delete(ctx, number: int):
         await ctx.send(f'Deleted note: {deleted_note}')
     else:
         await ctx.send('Could not find note to delete. Make sure you have entered the correct note number.')
-
 
 
 bot.run(os.environ["DISCORD_TOKEN"])
