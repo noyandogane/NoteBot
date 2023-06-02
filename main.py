@@ -34,6 +34,7 @@ async def add(ctx, category: str = None, *, note: str):
         user_notes.setdefault('Uncategorized', []).append(note)
         await ctx.send('Note added without a category!')
 
+
 @bot.command()
 async def view(ctx):
     user_notes = notes.get(ctx.message.author.id)
