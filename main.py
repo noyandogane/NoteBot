@@ -9,6 +9,15 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 notes = {}
 
 @bot.command()
+async def help(ctx):
+    await ctx.send('''
+    **!add** - Add a note
+    **!view** - View your notes
+    **!delete** - Delete a note
+    '''
+    )
+    
+@bot.command()
 async def add(ctx, *, note: str):
     if ctx.message.author.id not in notes:
         notes[ctx.message.author.id] = []
