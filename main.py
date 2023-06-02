@@ -13,7 +13,7 @@ notes = {}  # format: {user_id: {category: [note1, note2,...]}}
 @bot.command()
 async def help(ctx):
     embed = discord.Embed(title='Note Keeper Bot Help', description='Use the following commands to manage your notes:', color=discord.Color.blue())
-    embed.add_field(name='!add [category] <note>', value='Add a note to a category. If no category is specified, the note will be added without a category.', inline=False)
+    embed.add_field(name='!add [c=<category>] <note>', value='Add a note to a category. If no category is specified, the note will be added without a category.', inline=False)
     embed.add_field(name='!view', value='View all your notes', inline=False)
     embed.add_field(name='!view_category <category>', value='View notes from a specific category', inline=False)
     embed.add_field(name='!delete <category> <number>', value='Delete a note from a category', inline=False)
